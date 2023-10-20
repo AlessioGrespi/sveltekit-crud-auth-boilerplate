@@ -6,7 +6,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	// Stage 1
 	event.locals.user = authenticateUser(event)
 
-    console.log("Checking in hooks")
+    //console.log("Checking in hooks")
 
 	if (event.url.pathname.startsWith("/posts")) {
         if (!event.locals.user) {
@@ -18,11 +18,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	}
 
-	console.log("Resolving event")
+	//console.log("Resolving event")
 	//console.log(event)
 	const response = await resolve(event) // Stage 2
 
 	// Stage 3
-	console.log("Returning response")
+	//console.log("Returning response")
 	return response
 }
