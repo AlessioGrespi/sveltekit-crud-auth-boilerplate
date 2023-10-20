@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Define the Prisma client generator
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Define the data source, in this case, SQLite database
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.sqlite" // SQLite database file location
+}
+
+// Model for storing user information
+model User {
+  id       String    @id @unique @default(cuid()) // Unique identifier for each user
+  username String    @unique // Unique username for each user
+  email    String    @unique // Unique email address for each user
+  usertype String    @default("USER") // User type with a default value of "USER"
+  password Password? // One-to-one relation to the Password model
+  posts    Post[]
+}
+
+// Model for storing user passwords securely
+model Password {
+  id       String @id @unique @default(cuid()) // Unique identifier for each password
+  password String // Field to store the hashed password
+  userId   String @unique // Unique user ID, used for the relation to the User model
+  user     User   @relation(fields: [userId], references: [id]) // Establish a relation to the User model
+}
+
+model Post {
+  id       String @id @unique @default(cuid()) // Unique identifier for each password
+  title    String
+  content  String
+  author   User   @relation(fields: [authorId], references: [id]) // Establish a relation to the User model
+  authorId String
+  
+}
