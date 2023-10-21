@@ -5,17 +5,18 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// Define the data source, in this case, SQLite database
-//datasource db {
-//  provider = "sqlite"
-//  url      = "file:./dev.sqlite" // SQLite database file location
-//}
+//Define the data source, in this case, SQLite database
 
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+ provider = "sqlite"
+ url      = "file:./dev.sqlite" // SQLite database file location
 }
+
+// datasource db {
+//   provider     = "mysql"
+//   url          = env("DATABASE_URL")
+//   relationMode = "prisma"
+// }
 
 // Model for storing user information
 model User {
@@ -25,6 +26,7 @@ model User {
   usertype String    @default("USER") // User type with a default value of "USER"
   password Password? // One-to-one relation to the Password model
   posts    Post[]
+  sessions Session[]
 }
 
 // Model for storing user passwords securely
@@ -41,5 +43,12 @@ model Post {
   content  String
   author   User   @relation(fields: [authorId], references: [id]) // Establish a relation to the User model
   authorId String
-  
+}
+
+model Session {
+  id              String   @id @unique @default(cuid())
+  user            User     @relation(fields: [userId], references: [id])
+  userId          String
+  sessionCreated  DateTime @default(now())
+  sessionExpiry   DateTime
 }

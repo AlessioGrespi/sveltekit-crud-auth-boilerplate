@@ -5,6 +5,7 @@ export const POST: RequestHandler = async ({ cookies }) => {
     console.log('logging out', cookies.get('user'))
 			
     cookies.delete('user')
+    cookies.delete('userid')
     cookies.delete('usertype')
     console.log('logged out')
     

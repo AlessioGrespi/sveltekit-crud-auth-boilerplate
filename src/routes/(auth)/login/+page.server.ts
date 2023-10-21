@@ -45,8 +45,36 @@ export const actions: Actions = {
 			if (passwordDB.password !== emailform.password){
 				throw error(500, "error")
 			}
+			
+			var date = new Date();
 
-			cookies.set("user", user.email, {
+			console.log(date)
+		
+			// add a day
+			date.setDate(date.getDate() + 1);
+		
+			console.log(date)
+
+			const session = await prisma.session.create({
+				data: {
+					userId: user.id,
+					sessionExpiry: date
+				}
+			}) 
+ 
+/* 			const session = await prisma.session.findUniqueOrThrow({
+				where: { userId: user.id } 
+			})  */
+
+			cookies.set("session", session.id, {
+				path: "/",
+				httpOnly: true,
+				sameSite: "strict",
+				secure: process.env.NODE_ENV === "production",
+				maxAge: 60 * 60 * 24 * 7, // 1 week
+			})
+
+			/* cookies.set("user", user.email, {
 				path: "/",
 				httpOnly: true,
 				sameSite: "strict",
@@ -68,7 +96,7 @@ export const actions: Actions = {
 				sameSite: "strict",
 				secure: process.env.NODE_ENV === "production",
 				maxAge: 60 * 60 * 24 * 7, // 1 week
-			})
+			}) */
 
             console.log("Logging in")
             

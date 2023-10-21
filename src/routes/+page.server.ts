@@ -7,6 +7,9 @@ export const load: PageServerLoad = async ({ locals, cookies }) => {
 	
 	//const posts = await prisma.post.findMany()
 
+
+
+
 	return {
 		user: locals.user,
 		email: cookies.get('user'),
