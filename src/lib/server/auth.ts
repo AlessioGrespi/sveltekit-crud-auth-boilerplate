@@ -1,9 +1,7 @@
 import { error, type RequestEvent } from "@sveltejs/kit"
 
 export const authenticateUser = async (event: RequestEvent) => {
-
-	try {
-			// get the cookies from the request
+		// get the cookies from the request
 		const { cookies } = event
 
 		// console.log(cookies)
@@ -11,16 +9,16 @@ export const authenticateUser = async (event: RequestEvent) => {
 		// get the user token from the cookie
 		const userToken = cookies.get("session")
 
-		console.log(userToken)
+		//console.log(userToken)
 
-		console.log("Checking user in server")
+		//console.log("Checking user in server")
 
 		// if the user token is not valid, return null
 		// this is where you would check the user token against your database
 		// to see if it is valid and return the user object
 
 		if (!userToken) {
-			console.log("User token not found in cookies");
+			//console.log("User token not found in cookies");
 			return null; // Return or handle the absence of a user token
 		}
 
@@ -28,17 +26,14 @@ export const authenticateUser = async (event: RequestEvent) => {
 
 		if (session) {
 			// You can use the session object here
-			console.log("Session found:", session);
+			//console.log("Session found:", session);
 			const user = session
 			return user; // Return the session object
 		} else {
-			console.log("Session not found");
+			//console.log("Session not found");
 			return null; // Handle the case where the session is not found
 		}
-	} catch (error){
-
-	}
-
+}
 	
 	
 /* 	async function getSession({ userToken }) {
@@ -66,7 +61,7 @@ export const authenticateUser = async (event: RequestEvent) => {
 		}
 	};
  */
-}
+
 
 async function getSession({ userToken }) {
     const session = await prisma.session.findFirst({

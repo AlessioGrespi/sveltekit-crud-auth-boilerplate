@@ -5,50 +5,57 @@ import { redirect, error, type Handle } from "@sveltejs/kit"
 export const handle: Handle = async ({ event, resolve }) => {
 	// Stage 1
 
-	async function waitForSession() {
-		try {
-			const session = await authenticateUser(event)
+	const session = await authenticateUser(event)
 
-			const sessionData = session;
+	console.log(session?.sessionExpiry)
 
-			console.log("Checking in hooks")
+	const sessionData = session;
 
-			//console.log("Resolving event")
-			//console.log(event)
+	console.log("Checking in hooks")
+
+	//console.log("Resolving event")
+	//console.log(event)
 
 
-			if (event.url.pathname.startsWith("/posts")) {
-				console.log("Checking path access")
-				console.log(sessionData)
+	if (event.url.pathname.startsWith("/posts")) {
+		console.log("Checking path access")
+		console.log(sessionData)
 
-				if (sessionData) {
-					if (sessionData.userType !== "USER") {
-						throw error(401, "No Access")
-					}
-
-					if (sessionData.userType === "USER") {
-						console.log("access granted")
-					}
-				}
-				else {
-					throw error(401, "No session")
-				}
+		if (sessionData) {
+			if (sessionData.userType !== "USER") {
+				throw redirect(307, "/")
 			}
 
-		} catch (err) {
-			throw error(401, "No session")
+			if (sessionData.userType === "USER") {
+				console.log("access granted")
+			}
+		}
+		else {
+			throw redirect(307, "/")
 		}
 	}
 
-	
 
-	try{
-		waitForSession()
-	}
-	catch(err){
-		console.log("pain")
-		throw redirect(303, "/")
-	}
+	/* 
+		async function waitForSession() {
+			try {
+				
+	
+				
+			} catch (err) {
+				throw error(401, "No session")
+			}
+		}
+	
+		
+	
+		try{
+			waitForSession()
+		}
+		catch(err){
+			console.log("pain")
+			throw redirect(303, "/")
+		} */
 
 
 
