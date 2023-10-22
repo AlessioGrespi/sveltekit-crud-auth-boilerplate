@@ -8,8 +8,8 @@ generator client {
 //Define the data source, in this case, SQLite database
 
 datasource db {
- provider = "sqlite"
- url      = "file:./dev.sqlite" // SQLite database file location
+  provider = "sqlite"
+  url      = "file:./dev.sqlite" // SQLite database file location
 }
 
 // datasource db {
@@ -46,9 +46,9 @@ model Post {
 }
 
 model Session {
-  id              String   @id @unique @default(cuid())
-  user            User     @relation(fields: [userId], references: [id])
-  userId          String
-  sessionCreated  DateTime @default(now())
-  sessionExpiry   DateTime
+  id            String   @id @unique @default(cuid())
+  user          User     @relation(fields: [userId], references: [id])
+  userId        String
+  userType      String   @default("USER")
+  sessionExpiry DateTime
 }

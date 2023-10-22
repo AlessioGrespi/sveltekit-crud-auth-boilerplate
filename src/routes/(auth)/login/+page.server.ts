@@ -4,12 +4,12 @@ import { prisma } from "$lib/server/prisma"
 import { error, fail, redirect } from "@sveltejs/kit"
 
 export const load: PageServerLoad = async ({ locals, cookies }) => {
-	
+
 	const posts = await prisma.post.findMany()
 
-    if (locals.user) {
-        throw redirect(307,"/")
-    }
+	if (locals.user) {
+		throw redirect(307, "/")
+	}
 
 	return {
 		user: locals.user,
@@ -20,13 +20,13 @@ export const load: PageServerLoad = async ({ locals, cookies }) => {
 
 export const actions: Actions = {
 	login: async ({ request, cookies }) => {
-	
-	//default: async ({ request, cookies }) => {
+
+		//default: async ({ request, cookies }) => {
 		const email = 'a@a.com'; // Replace with the email from the form submission
 		const password = 'pass'; // Replace with the provided password
-		
-		const emailform = Object.fromEntries(await request.formData()) 
-		
+
+		const emailform = Object.fromEntries(await request.formData())
+
 		//console.log(emailform)
 
 		try {
@@ -37,34 +37,53 @@ export const actions: Actions = {
 			const passwordDB = await prisma.password.findUniqueOrThrow({
 				where: { userId: user.id } // Find the user by email
 			});
-			
+
 			console.log(user)
 			console.log(passwordDB);
 			console.log(emailform.password)
 
-			if (passwordDB.password !== emailform.password){
+			if (passwordDB.password !== emailform.password) {
 				throw error(500, "error")
 			}
-			
+
 			var date = new Date();
 
-			console.log(date)
-		
-			// add a day
-			date.setDate(date.getDate() + 1);
-		
-			console.log(date)
-
-			const session = await prisma.session.create({
-				data: {
+			let session = await prisma.session.findFirst({
+				where: {
 					userId: user.id,
-					sessionExpiry: date
+					userType: user.usertype,
+					sessionExpiry: { gt: date }
+				},
+				orderBy: {
+					sessionExpiry: 'desc'
 				}
-			}) 
- 
-/* 			const session = await prisma.session.findUniqueOrThrow({
-				where: { userId: user.id } 
-			})  */
+			})
+
+			date.setDate(date.getDate() + 1);
+
+			if (!session) {
+				session = await prisma.session.create({
+					data: {
+						userId: user.id,
+						userType: user.usertype,
+						sessionExpiry: date
+					}
+				})
+			}
+			else {
+				await prisma.session.update({
+					where: {
+						id: session.id
+					},
+					data: {
+						sessionExpiry: date
+					}
+				})
+			}
+
+			/* 			const session = await prisma.session.findUniqueOrThrow({
+							where: { userId: user.id } 
+						})  */
 
 			cookies.set("session", session.id, {
 				path: "/",
@@ -98,9 +117,9 @@ export const actions: Actions = {
 				maxAge: 60 * 60 * 24 * 7, // 1 week
 			}) */
 
-            console.log("Logging in")
-            
-			
+			console.log("Logging in")
+
+
 
 		} catch (err) {
 			console.error('An error occurred:', err);
@@ -109,6 +128,6 @@ export const actions: Actions = {
 
 		}
 
-		throw redirect(303,"/")
+		throw redirect(303, "/")
 	},
 }
