@@ -1,4 +1,6 @@
 import { error, type RequestEvent } from "@sveltejs/kit"
+import { prisma } from "$lib/server/prisma"
+
 
 export const authenticateUser = async (event: RequestEvent) => {
 		// get the cookies from the request

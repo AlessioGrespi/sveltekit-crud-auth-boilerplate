@@ -7,16 +7,16 @@ generator client {
 
 //Define the data source, in this case, SQLite database
 
-datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.sqlite" // SQLite database file location
-}
-
 // datasource db {
-//   provider     = "mysql"
-//   url          = env("DATABASE_URL")
-//   relationMode = "prisma"
+//   provider = "sqlite"
+//   url      = "file:./dev.sqlite" // SQLite database file location
 // }
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
 
 // Model for storing user information
 model User {

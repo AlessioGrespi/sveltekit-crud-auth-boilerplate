@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import type { LayoutData } from './$types';
 
-	export let data: PageData;
+	export let data: LayoutData;
 </script>
 
 <div class="navbar">
 	<a href="/">Home</a>
-	{#if data.email}
+	{#if data.session}
 	<form action="/logout" method="POST">
 		<button type="submit">Logout</button>
 	</form>

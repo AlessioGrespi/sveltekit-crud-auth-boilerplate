@@ -9,12 +9,12 @@ export const load: PageServerLoad = async ({ locals, cookies }) => {
 
 
 
-
+/* 
 	return {
 		user: locals.user,
 		email: cookies.get('user'),
 		//posts
-	}
+	} */
 }
 /* 
 export const actions: Actions = {
