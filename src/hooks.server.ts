@@ -11,7 +11,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	const sessionData = session;
 
-	console.log("Checking in hooks")
+	//console.log("Checking in hooks")
 
 	//console.log("Resolving event")
 	//console.log(event)
