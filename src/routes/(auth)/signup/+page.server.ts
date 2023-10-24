@@ -50,21 +50,21 @@ export const actions: Actions = {
 
 		console.log('New Auth Client')
 
-		const GoogleOAuth2Client = new OAuth2Client(
+		const oAuth2Client = new OAuth2Client(
 			GOOGLE_CLIENT_ID,
 			GOOGLE_CLIENT_SECRET,
 			googleRedirectURL
 		)
 
-		const googleAuthoriseURL = GoogleOAuth2Client.generateAuthUrl({
+		const googleAuthoriseURL = oAuth2Client.generateAuthUrl({
 			access_type: 'offline',
-			scope:'https://www.googleapis.com/auth/userinfo.profile',
-			prompt: 'consent'
+			scope:'https://www.googleapis.com/auth/userinfo.email',
+			//prompt: 'consent'
 		});
 
 		console.log('Generate Auth URL')
 
-		throw redirect(302,googleAuthoriseURL)
+		throw redirect(302, googleAuthoriseURL)
 	}
 
 }

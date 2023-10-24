@@ -20,13 +20,14 @@ datasource db {
 
 // Model for storing user information
 model User {
-  id       String    @id @unique @default(cuid()) // Unique identifier for each user
-  username String    @unique // Unique username for each user
-  email    String    @unique // Unique email address for each user
-  usertype String    @default("USER") // User type with a default value of "USER"
-  password Password? // One-to-one relation to the Password model
-  posts    Post[]
-  sessions Session[]
+  id               String    @id @unique @default(cuid()) // Unique identifier for each user
+  username         String    @unique // Unique username for each user
+  email            String    @unique // Unique email address for each user
+  usertype         String    @default("USER") // User type with a default value of "USER"
+  password         Password? // One-to-one relation to the Password model
+  posts            Post[]
+  sessions         Session[]
+  oAuthConnections oAuth[]
 }
 
 // Model for storing user passwords securely
@@ -51,4 +52,16 @@ model Session {
   userId        String
   userType      String   @default("USER")
   sessionExpiry DateTime
+}
+
+model oAuth {
+  id                String   @id @unique @default(cuid())
+  user              User     @relation(fields: [userId], references: [id])
+  userId            String
+  userName          String
+  oAuthEmail        String
+  Provider          String
+  accessToken       String
+  accessTokenExpiry DateTime
+  refreshToken      String
 }

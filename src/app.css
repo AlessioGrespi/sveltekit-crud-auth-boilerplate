@@ -1,0 +1,16 @@
+form {
+  display: flex;
+  align-items: center; /* or flex-start, or flex-end */
+  flex-direction: column;
+  padding: 20px 50px;
+  background-color: lightblue;
+  width: 260px;
+}
+form div {
+  padding: 5px;
+  display: flex;
+}
+form div label {
+  align-items: left;
+  justify-items: space-between;
+}/*# sourceMappingURL=app.css.map */
