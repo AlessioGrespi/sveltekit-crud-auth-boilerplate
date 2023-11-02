@@ -1,16 +1,19 @@
 import { redirect } from "@sveltejs/kit";
 import { OAuth2Client } from "google-auth-library"
 import { GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET } from "$env/static/private"
+import { page } from "$app/stores";
+import {writable} from 'svelte/store'
+import { oAuthDataAccessToken, oAuthDataAccessTokenExpiry, oAuthDataEmail, oAuthDataEmailVerified, oAuthDataProvider, oAuthDataRefreshToken } from "$lib/server/auth.js";
 
 export const GET = async({url}) => {
 
     try{
-        console.log(url)
+       // console.log(url)
 
         const googleRedirectURL = 'http://localhost:5173/oauth/google'
         const code = await url.searchParams.get('code')
     
-        console.log('code: ', code)
+        //console.log('code: ', code)
 
         const oAuth2Client = new OAuth2Client(
             GOOGLE_CLIENT_ID,
@@ -20,12 +23,12 @@ export const GET = async({url}) => {
         
         console.log('New Client')
 
-        console.log('code: ', code)
+       // console.log('code: ', code)
 
         const r = await oAuth2Client.getToken(code)
 
-        console.log('r ', r)
-        console.log('r.tokens ', r.tokens)
+        //console.log('r ', r)
+       // console.log('r.tokens ', r.tokens)
         console.log('Auth Tokens Received')
         oAuth2Client.setCredentials(r.tokens)
         
@@ -48,13 +51,23 @@ export const GET = async({url}) => {
         const jwtToken = user.id_token;
         const decodedData = decodeJWT(jwtToken);
         
-        console.log('email ', decodedData.email);
-        console.log('email verified ', decodedData.email_verified)
+        console.log("token decoded", decodedData)
+        console.log('email', decodedData.email)
+
+            
+        oAuthDataEmail.set(decodedData.email);
+        oAuthDataEmailVerified.set(decodedData.email_verified)
+        oAuthDataProvider.set("Google")
+        oAuthDataAccessToken.set(user.access_token)
+        oAuthDataAccessTokenExpiry.set(user.expiry_date)
+        oAuthDataRefreshToken.set(user.refresh_token)
         
+        //console.log(oAuthData.email)
+
 
     }catch(err){
         console.log("error")
     }
 
-    throw redirect(303,'/signup/onboarding')
+    throw redirect(303, "../signup/onboarding")
 }

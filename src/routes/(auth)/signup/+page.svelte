@@ -12,9 +12,9 @@
 
 		<button type="submit">Signup</button>
 	</form>
-	<form class="auth-form" method="post" action="?/GoogleOAuth2">
+	<form  method="post" action="?/GoogleOAuth2">
 		<div>
-			<button class="btn-auth" type="submit">
+			<button type="submit">
 				<!-- <img class="btn-auth-img" src='/google_signin_buttons/web/1x/btn_google_signin_dark_pressed_web.png' alt='google sign in'/> -->
 				Sign up with google
 			</button>
