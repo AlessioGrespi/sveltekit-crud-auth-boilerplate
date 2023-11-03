@@ -46,8 +46,8 @@ export const actions: Actions = {
 	GoogleOAuth2: async({request}) => {
 		console.log('SignUp with Google')
 
-		const googleRedirectURL = 'http://localhost:5173/oauth/google'
-
+		//const googleRedirectURL = 'http://localhost:5173/oauth/google'
+		const googleRedirectURL = 'https://sveltekit-crud-auth-boilerplate.vercel.app/oauth/google'
 		console.log('New Auth Client')
 
 		const oAuth2Client = new OAuth2Client(
