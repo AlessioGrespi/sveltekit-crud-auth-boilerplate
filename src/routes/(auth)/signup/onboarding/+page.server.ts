@@ -1,4 +1,5 @@
 import { get } from 'svelte/store'
+import { prisma } from "$lib/server/prisma"
 import { oAuthDataAccessToken, oAuthDataAccessTokenExpiry, oAuthDataEmail, oAuthDataEmailVerified, oAuthDataProvider, oAuthDataRefreshToken } from '$lib/server/auth'
 import type { Actions, PageServerLoad } from '../$types'
 
