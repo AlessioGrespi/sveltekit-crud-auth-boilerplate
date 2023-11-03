@@ -9,8 +9,8 @@ export const GET = async({url}) => {
 
     try{
        // console.log(url)
-
-        const googleRedirectURL = 'http://localhost:5173/oauth/google'
+       
+        const googleRedirectURL = 'https://sveltekit-crud-auth-boilerplate.vercel.app/oauth/google'
         const code = await url.searchParams.get('code')
     
         //console.log('code: ', code)
