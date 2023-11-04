@@ -43,7 +43,14 @@ export const actions: Actions = {
 			content: string
 		}
 
-		const authorId = cookies.get("userid")
+
+		const sessionId = cookies.get("session")
+
+		const sessionData = await prisma.session.findUnique({
+			where: { id: sessionId }
+		}) 
+
+		const authorId = sessionData.userId
 
 		try {
 			await prisma.post.create({
