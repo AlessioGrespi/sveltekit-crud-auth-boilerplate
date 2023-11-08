@@ -13,7 +13,6 @@ export const load: PageServerLoad = async ({ locals, cookies }) => {
 }
 
 export const actions: Actions = {
-
 	
 	signup: async ({ request, cookies }) => {
 
