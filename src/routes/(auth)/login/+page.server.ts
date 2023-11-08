@@ -1,6 +1,6 @@
 import type { Actions, PageServerLoad } from "./$types"
 import { prisma } from "$lib/server/prisma"
-
+import bcrypt from 'bcrypt'
 import { error, fail, redirect } from "@sveltejs/kit"
 
 export const load: PageServerLoad = async ({ locals, cookies }) => {
@@ -42,7 +42,10 @@ export const actions: Actions = {
 			console.log(passwordDB);
 			console.log(emailform.password)
 
-			if (passwordDB.password !== emailform.password) {
+			const result = await bcrypt.compare(emailform.password, passwordDB.password)
+
+			console.log('result ', result)
+			if (!result) {
 				throw error(500, "error")
 			}
 

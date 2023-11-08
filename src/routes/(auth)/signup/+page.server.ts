@@ -1,7 +1,9 @@
 import type { Actions, PageServerLoad } from "./$types"
 import { prisma } from "$lib/server/prisma"
-
+import bcrypt from 'bcrypt'
 import { error, fail, redirect } from "@sveltejs/kit"
+
+
 
 export const load: PageServerLoad = async ({ locals, cookies }) => {
 	return {
@@ -11,11 +13,15 @@ export const load: PageServerLoad = async ({ locals, cookies }) => {
 }
 
 export const actions: Actions = {
+
+	
 	signup: async ({ request, cookies }) => {
 
 		const form = Object.fromEntries(await request.formData()) 
 		
 		console.log(form)
+
+		const hashedPassword = await bcrypt.hash(form.password, 10)
 
 		try {
 
@@ -25,7 +31,7 @@ export const actions: Actions = {
                     username: form.username,
                     password: { 
                         create: {
-                            password: form.password ,
+                            password: hashedPassword ,
                         },
                     },
                 },
