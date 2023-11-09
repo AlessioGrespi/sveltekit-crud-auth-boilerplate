@@ -8,6 +8,7 @@ export const oAuthDataProvider = writable("")
 export const oAuthDataAccessToken = writable("")
 export const oAuthDataAccessTokenExpiry = writable("")
 export const oAuthDataRefreshToken = writable("")
+export const sessionUserID = writable("")
 
 export const authenticateUser = async (event: RequestEvent) => {
 		// get the cookies from the request
@@ -32,6 +33,8 @@ export const authenticateUser = async (event: RequestEvent) => {
 		}
 
 		const session = await getSession({ userToken });
+
+		sessionUserID.set(session.userId)
 
 		if (session) {
 			// You can use the session object here

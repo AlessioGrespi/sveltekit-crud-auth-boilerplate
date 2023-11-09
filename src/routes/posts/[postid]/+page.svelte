@@ -1,15 +1,21 @@
 <script lang="ts">
 	import type { PageData } from './$types'
-
+    
 	export let data: PageData
-	$: ({ post } = data)
+	$: ({ post, posts, userID } = data)
 </script>
 
-<form action="?/updatePost" method="POST">
-	<h3>Editing: {post.title}</h3>
-	<label for="title"> Title </label>
-	<input type="text" id="title" name="title" value={post.title} />
-	<label for="title"> Title </label>
-	<textarea id="content" name="content" rows={5} value={post.content} />
-	<button type="submit">Update post</button>
-</form>
+{#if post.authorId === userID}
+<a href='./{post.id}/edit'>Edit Post</a>
+{/if}
+
+<h2>{post.title}</h2>
+<p>{post.content}</p>
+
+<div>
+    {#each posts as post}
+        <ul>
+            <li><a href='/posts/{post.id}'>{post.title}</a></li>
+        </ul>
+    {/each}
+</div>

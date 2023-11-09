@@ -1,17 +1,26 @@
 import type { Actions, PageServerLoad } from "./$types"
 import { prisma } from "$lib/server/prisma"
-import { error, fail } from "@sveltejs/kit"
+import { error, fail, redirect } from "@sveltejs/kit"
 import { sessionUserID } from '$lib/server/auth';
 import { get } from 'svelte/store'
 
 export const load: PageServerLoad = async ({ params }) => {
 	
+	const userID = get(sessionUserID)
+
+	console.log('user id', userID)
+
 	const getPost = async () => {
 		const post = await prisma.post.findUnique({
 			where: {
 				id: params.postid,
 			},
 		})
+        
+		if (post?.authorId != userID){
+			throw redirect(307, './../')
+		}
+
 		if (!post) {
 			throw error(404, "Post not found")
 		}
@@ -20,19 +29,15 @@ export const load: PageServerLoad = async ({ params }) => {
 		return post
 	}
 
-	const userID = get(sessionUserID)
-
-	console.log('user id', userID)
 	
 
 	return {
 		post: getPost(),
 		userID,
-		posts: await prisma.post.findMany(),
 		
 	}
 }
-/* 
+
 export const actions: Actions = {
 	updatePost: async ({ request, params }) => {
 		const { title, content } = Object.fromEntries(await request.formData()) as {
@@ -60,4 +65,3 @@ export const actions: Actions = {
 		}
 	},
 }
- */

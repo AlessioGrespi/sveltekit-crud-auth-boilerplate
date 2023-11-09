@@ -30,7 +30,7 @@ model Post {
   id       String @id @unique @default(cuid())
   title    String
   content  String
-  authorId String
+  authorId String 
   author   User   @relation(fields: [authorId], references: [id])
 }
 

@@ -12,13 +12,8 @@
     <h2><a href="./posts/createPost">Create Post</a></h2>
     <h2>Posts:</h2>
     {#each posts as post}
-        <article>
-            <header>{post.title}</header>
-				<form action="?/deletePost&id={post.id}" method="POST">
-                <button type="submit" class="outline secondary">Delete post</button>
-            </form>
-            <a href="/posts/{post.id}" role="button" class="outline constrast" style="width: 100%;"
-                >Edit post</a>
-        </article>
+        <ul>
+            <li><a href='/posts/{post.id}'>{post.title}</a></li>
+        </ul>
     {/each}
 </div>

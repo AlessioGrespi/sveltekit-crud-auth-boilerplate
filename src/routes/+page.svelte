@@ -18,7 +18,7 @@
 		<li>Update session expiry</li>
 		<li>Hash Session id before adding to cookies</li>
 		<li>Salt the passwords</li>
-		<li>Change the password</li>
+
 		<li>Delete user account</li>
 		<li>oAuth (lol)</li>
 		<li>Protected CRUD</li>
@@ -27,6 +27,7 @@
 	</ul>
 	<h1>Complete:</h1>
 	<ul>
+		<li>Change the password</li>
 		<li>Basic login</li>
 		<li>CRUD</li>
 		<li>Hash the passwords</li>
