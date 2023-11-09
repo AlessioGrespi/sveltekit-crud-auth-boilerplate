@@ -16,6 +16,7 @@
 		<li>Add Tailwind</li>
 		<li>Update the sessions expiry time</li>
 		<li>Update session expiry</li>
+		<li>Hash Session id before adding to cookies</li>
 		<li>Salt the passwords</li>
 		<li>Change the password</li>
 		<li>Delete user account</li>

@@ -11,6 +11,7 @@
 		<button type="submit">Logout</button>
 	</form>
 	<a href="/posts">Posts</a>
+	<a href="/account">Account</a>
 	{:else}
 		<a href="/login">Login</a>
 		<a href="/signup">Signup</a>

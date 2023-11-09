@@ -37,34 +37,6 @@ export const authenticateUser = async (event: RequestEvent) => {
 		}
 }
 	
-	
-/* 	async function getSession({ userToken }) {
-
-		const session = await prisma.session.findFirst({
-			where: {
-				id: userToken
-			}
-		})
-		console.log("Session lookup")
-
-		console.log(session)
-		return session
-	} */
-
-	/* async () => {
-
-		const session = await getSession({ userToken });
-		
-		if (session) {
-			// You can use the session object here
-			console.log(session);
-		} else {
-			console.log("Session not found");
-		}
-	};
- */
-
-
 async function getSession({ userToken }) {
     const session = await prisma.session.findFirst({
         where: {

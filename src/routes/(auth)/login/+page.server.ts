@@ -5,7 +5,7 @@ import { error, fail, redirect } from "@sveltejs/kit"
 
 export const load: PageServerLoad = async ({ locals, cookies }) => {
 
-	const posts = await prisma.post.findMany()
+	//const posts = await prisma.post.findMany()
 
 	if (locals.user) {
 		throw redirect(307, "/")
@@ -13,8 +13,6 @@ export const load: PageServerLoad = async ({ locals, cookies }) => {
 
 	return {
 		user: locals.user,
-		email: cookies.get('user'),
-		posts
 	}
 }
 
@@ -22,8 +20,8 @@ export const actions: Actions = {
 	login: async ({ request, cookies }) => {
 
 		//default: async ({ request, cookies }) => {
-		const email = 'a@a.com'; // Replace with the email from the form submission
-		const password = 'pass'; // Replace with the provided password
+		//const email = 'a@a.com'; // Replace with the email from the form submission
+		//const password = 'pass'; // Replace with the provided password
 
 		const emailform = Object.fromEntries(await request.formData())
 
