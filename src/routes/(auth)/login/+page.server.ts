@@ -48,6 +48,8 @@ export const actions: Actions = {
 			}
 
 			var date = new Date();
+			
+			console.log(date)
 
 			let session = await prisma.session.findFirst({
 				where: {
@@ -62,6 +64,8 @@ export const actions: Actions = {
 
 			date.setDate(date.getDate() + 1);
 
+			console.log(date)
+			
 			if (!session) {
 				session = await prisma.session.create({
 					data: {

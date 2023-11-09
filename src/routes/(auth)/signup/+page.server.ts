@@ -1,6 +1,11 @@
 import type { Actions, PageServerLoad } from "./$types"
 import { prisma } from "$lib/server/prisma"
+
 import bcrypt from 'bcrypt'
+
+//import { OAuth2Client } from "google-auth-library"
+//import { GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET } from "$env/static/private"
+
 import { error, fail, redirect } from "@sveltejs/kit"
 
 
@@ -23,7 +28,6 @@ export const actions: Actions = {
 		const hashedPassword = await bcrypt.hash(form.password, 10)
 
 		try {
-
             await prisma.user.create({
                 data: {
                     email: form.email,
@@ -35,9 +39,6 @@ export const actions: Actions = {
                     },
                 },
             })
-
-            
-			
 			
 		} catch (err) {
 			console.error('An error occurred:', err);
@@ -49,7 +50,32 @@ export const actions: Actions = {
 
 		// Return the appropriate response
 		throw redirect (303,'/')
+	},
+
+	GoogleOAuth2: async({request}) => {
+		console.log('SignUp with Google')
+
+		//const googleRedirectURL = 'http://localhost:5173/oauth/google'
+		const googleRedirectURL = 'https://sveltekit-crud-auth-boilerplate.vercel.app/oauth/google'
+		console.log('New Auth Client')
+
+		const oAuth2Client = new OAuth2Client(
+			GOOGLE_CLIENT_ID,
+			GOOGLE_CLIENT_SECRET,
+			googleRedirectURL
+		)
+
+		const googleAuthoriseURL = oAuth2Client.generateAuthUrl({
+			access_type: 'offline',
+			scope:'https://www.googleapis.com/auth/userinfo.email',
+			//prompt: 'consent'
+		});
+
+		console.log('Generate Auth URL')
+
+		throw redirect(302, googleAuthoriseURL)
 	}
+
 }
 
 

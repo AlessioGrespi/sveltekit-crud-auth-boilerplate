@@ -1,6 +1,13 @@
-import { error, type RequestEvent } from "@sveltejs/kit"
+import type{  RequestEvent } from "@sveltejs/kit"
 import { prisma } from "$lib/server/prisma"
+import { writable } from 'svelte/store';
 
+export const oAuthDataEmail = writable("")
+export const oAuthDataEmailVerified = writable("")
+export const oAuthDataProvider = writable("")
+export const oAuthDataAccessToken = writable("")
+export const oAuthDataAccessTokenExpiry = writable("")
+export const oAuthDataRefreshToken = writable("")
 
 export const authenticateUser = async (event: RequestEvent) => {
 		// get the cookies from the request

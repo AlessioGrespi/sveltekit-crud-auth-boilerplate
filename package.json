@@ -33,7 +33,11 @@
 	"dependencies": {
 		"@prisma/client": "^5.4.2",
 		"@sveltejs/adapter-vercel": "^3.0.3",
+
 		"bcrypt": "^5.1.1",
+
+		"google-auth-library": "^9.1.0",
+
 		"prisma": "^5.4.2"
 	}
 }
