@@ -41,6 +41,6 @@ export const actions: Actions = {
 			return fail(500, { message: "Could not create the article." })
 		}
 
-        throw redirect(303, "./posts")
+        throw redirect(303, "/posts")
 	},
 }

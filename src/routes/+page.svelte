@@ -18,12 +18,15 @@
 		<li>Update session expiry</li>
 		<li>Hash Session id before adding to cookies</li>
 		<li>Salt the passwords</li>
-
 		<li>Delete user account</li>
 		<li>oAuth (lol)</li>
-		<li>Protected CRUD</li>
 		<li>Move Sessions logic/db to redis</li>
-		<li>Protect posts from being edited by other people</li>
+		<li>emails?
+			<ul>
+				<li>password reset</li>
+				<li>verify email</li>
+			</ul>
+		</li>
 	</ul>
 	<h1>Complete:</h1>
 	<ul>
@@ -31,5 +34,7 @@
 		<li>Basic login</li>
 		<li>CRUD</li>
 		<li>Hash the passwords</li>
+		<li>Protected CRUD</li>
+		<li>Protect posts from being edited by other people</li>
 	</ul>
 </main>
