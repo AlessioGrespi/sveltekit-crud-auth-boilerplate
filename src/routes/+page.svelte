@@ -9,53 +9,26 @@
 <main>
     {#if data.email}
 		<p>Welcome, {data.email}</p>
-	<!-- {:else}
-		<div>
-			<form action="?/login" method="POST">
-                <label>
-                    Email
-                    <input name="email" id="email" type="email">
-                </label>
-               <label>
-                    Password
-                    <input name="password" id="password" type="password">
-                </label>
-				<button type="submit">Login</button>
-			</form>
-		</div> -->
 	{/if}
 
-	<!-- <div>
-		<h2>Posts:</h2>
-		{#each posts as post}
-			<article>
-				<header>{post.title}</header>
-				<p>
-					{post.content}
-				</p>
-				<form action="?/deletePost&id={post.id}" method="POST">
-					<button type="submit" class="outline secondary">Delete post</button>
-				</form>
-				<a href="/posts/{post.id}" role="button" class="outline constrast" style="width: 100%;"
-					>Edit post</a
-				>
-			</article>
-		{/each}
-
-		<form action="?/createPost" method="POST">
-			<h3>New Post</h3>
-			<label for="title"> Title </label>
-			<input type="text" id="title" name="title" />
-			<label for="content"> Content </label>
-			<textarea id="content" name="content" rows={5} />
-			<button type="submit">Add Post</button>
-		</form>
-	</div>
- -->
-
-
-
-
-
-
+	<h1>To Do: </h1>
+	<ul>
+		<li>Add Tailwind</li>
+		<li>Update the sessions expiry time</li>
+		<li>Update session expiry</li>
+		<li>Hash Session id before adding to cookies</li>
+		<li>Salt the passwords</li>
+		<li>Change the password</li>
+		<li>Delete user account</li>
+		<li>oAuth (lol)</li>
+		<li>Protected CRUD</li>
+		<li>Move Sessions logic/db to redis</li>
+		<li>Protect posts from being edited by other people</li>
+	</ul>
+	<h1>Complete:</h1>
+	<ul>
+		<li>Basic login</li>
+		<li>CRUD</li>
+		<li>Hash the passwords</li>
+	</ul>
 </main>

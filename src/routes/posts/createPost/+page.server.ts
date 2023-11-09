@@ -13,30 +13,6 @@ export const load: PageServerLoad = async () => {
 
 export const actions: Actions = {
 
-	deletePost: async ({ url }) => {
-		const id = url.searchParams.get("id")
-
-		if (!id) {
-			return fail(400, { message: "Invalid request" })
-		}
-
-		try {
-			await prisma.post.delete({
-				where: {
-					id: id,
-				},
-			})
-		} catch (err) {
-			console.error(err)
-			return fail(500, {
-				message: "Something went wrong deleting your post",
-			})
-		}
-
-		return {
-			status: 200,
-		}
-	},
 	createPost: async ({ request, cookies }) => {
 		const { title, content } = Object.fromEntries(await request.formData()) as {
 			title: string
@@ -65,8 +41,6 @@ export const actions: Actions = {
 			return fail(500, { message: "Could not create the article." })
 		}
 
-		return {
-			status: 201,
-		}
+        throw redirect(303, "./posts")
 	},
 }

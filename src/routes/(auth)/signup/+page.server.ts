@@ -1,8 +1,14 @@
 import type { Actions, PageServerLoad } from "./$types"
 import { prisma } from "$lib/server/prisma"
-import { OAuth2Client } from "google-auth-library"
-import { GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET } from "$env/static/private"
+
+import bcrypt from 'bcrypt'
+
+//import { OAuth2Client } from "google-auth-library"
+//import { GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET } from "$env/static/private"
+
 import { error, fail, redirect } from "@sveltejs/kit"
+
+
 
 export const load: PageServerLoad = async ({ locals, cookies }) => {
 	return {
@@ -12,11 +18,14 @@ export const load: PageServerLoad = async ({ locals, cookies }) => {
 }
 
 export const actions: Actions = {
+	
 	signup: async ({ request, cookies }) => {
 
 		const form = Object.fromEntries(await request.formData()) 
 		
 		console.log(form)
+
+		const hashedPassword = await bcrypt.hash(form.password, 10)
 
 		try {
             await prisma.user.create({
@@ -25,7 +34,7 @@ export const actions: Actions = {
                     username: form.username,
                     password: { 
                         create: {
-                            password: form.password ,
+                            password: hashedPassword ,
                         },
                     },
                 },
