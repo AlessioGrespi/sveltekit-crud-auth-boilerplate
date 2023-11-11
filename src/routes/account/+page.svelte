@@ -1,7 +1,7 @@
 <form action="?/changePassword" method="POST">
 	<label>Current Password<input name="oldPassword" id="oldPassword" type="password" /></label>
 	<label>New Password<input name="newPassword" id="newPassword" type="password" /></label>
-	<button type="submit">Change password</button>
+	<button class="px-1 py-1 rounded mx-1 font-sans font-semibold bg-slate-600 text-slate-50  hover:text-slate-600 hover:bg-slate-200" type="submit">Change password</button>
 </form>
 <!-- 
 <form action="?/deleteAccount" method="POST">
