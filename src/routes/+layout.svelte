@@ -1,28 +1,28 @@
 <script lang="ts">
-
-	//import './../app.css';
+	import '../app.css';
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
-
-	
 </script>
 
-<div class="navbar">
-	<a href="/">Home</a>
-	{#if data.session}
-	<form action="/logout" method="POST">
-		<button type="submit">Logout</button>
-	</form>
-	<a href="/posts">Posts</a>
-	<a href="/account">Account</a>
-	{:else}
-		<a href="/login">Login</a>
-		<a href="/signup">Signup</a>
-	{/if}
+<nav class="bg-slate-300 p-2 flex justify-between items-center">
+	<div>
+		<a class="px-1 font-sans font-semibold hover:text-slate-50" href="/">Home</a>
+	</div>
+	<div class="flex items-center">
+		{#if data.session}
+			<a class="px-1 font-sans font-semibold hover:text-slate-50" href="/posts">Posts</a>
+			<a class="px-1 font-sans font-semibold hover:text-slate-50" href="/account">Account</a>
+			<form  action="/logout" method="POST">
+				<button class="px-1 py-1 rounded mx-1 font-sans font-semibold bg-slate-600 text-slate-50  hover:text-slate-600 hover:bg-slate-50" type="submit">Logout</button>
+			</form>
+		{:else}
+			<a class="px-1 py-1 rounded mx-1 font-sans font-semibold bg-slate-600 text-slate-50  hover:text-slate-600 hover:bg-slate-50" href="/login">Login</a>
+			<a class="px-1 py-1 rounded mx-1 font-sans font-semibold bg-slate-600 text-slate-50  hover:text-slate-600 hover:bg-slate-50" href="/signup">Signup</a>
+		{/if}
 
-	<!-- <a href="/posts">Posts Testing</a> -->
-
-</div>
+		<!-- <a href="/posts">Posts Testing</a> -->
+	</div>
+</nav>
 
 <slot />
