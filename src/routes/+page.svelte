@@ -10,6 +10,8 @@
 		<ul class="text-xs indent-4">
 			
 			<li>Update the sessions expiry time</li>
+			<li>S3 uploads</li>
+			<li>Invoke Lambda functions</li>
 			<li>Update session expiry</li>
 			<li>Hash Session id before adding to cookies</li>
 			<li>Salt the passwords</li>
