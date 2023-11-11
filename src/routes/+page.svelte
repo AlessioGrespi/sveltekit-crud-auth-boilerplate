@@ -8,7 +8,7 @@
 	<div class='mx-20 mt-5 bg-slate-200 px-10 py-5'>
 		<h1 class="font-semibold">To Do:</h1>
 		<ul class="text-xs indent-4">
-			<li>Add Tailwind</li>
+			
 			<li>Update the sessions expiry time</li>
 			<li>Update session expiry</li>
 			<li>Hash Session id before adding to cookies</li>
@@ -26,6 +26,7 @@
 		</ul>
 		<h1 class="font-semibold">Complete:</h1>
 		<ul class="text-xs indent-4">
+			<li>Add Tailwind</li>
 			<li>Change the password</li>
 			<li>Basic login</li>
 			<li>CRUD</li>
